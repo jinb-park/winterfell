@@ -20,6 +20,7 @@ pub mod rescue;
 pub mod rescue_raps;
 pub mod utils;
 pub mod vdf;
+pub mod machine_learning;
 
 #[cfg(test)]
 mod tests;
@@ -200,6 +201,9 @@ pub enum ExampleType {
         #[structopt(short = "n", default_value = "3")]
         num_signers: usize,
     },
+    /// Run ML Inference
+    #[cfg(feature = "std")]
+    MachineLearning {},
 }
 
 /// Defines a set of hash functions available for the provided examples. Some examples may not
