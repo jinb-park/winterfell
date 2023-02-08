@@ -204,6 +204,12 @@ pub enum ExampleType {
     /// Run ML Inference
     #[cfg(feature = "std")]
     MachineLearning {},
+    /// Run ReLU
+    #[cfg(feature = "std")]
+    Relu {
+        #[structopt(short = "n", default_value = "3")]
+        num: i32,
+    },
 }
 
 /// Defines a set of hash functions available for the provided examples. Some examples may not

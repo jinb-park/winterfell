@@ -66,6 +66,10 @@ fn main() {
         ExampleType::MachineLearning {} => {
             machine_learning::get_example(&options)
         }
+        #[cfg(feature = "std")]
+        ExampleType::Relu { num } => {
+            machine_learning::relu::get_example(&options, num)
+        }
     }
     .expect("The example failed to initialize.");
 
