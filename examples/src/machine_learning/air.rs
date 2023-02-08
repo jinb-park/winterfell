@@ -22,8 +22,8 @@ impl Air for Mnist {
         // [Q] how to set proper constraint degrees? -> https://github.com/jinb-park/winterfell/tree/main/air
         let degrees = vec![
             TransitionConstraintDegree::new(2),
-            TransitionConstraintDegree::new(2),
-            TransitionConstraintDegree::new(2),
+            TransitionConstraintDegree::new(1),
+            TransitionConstraintDegree::new(1),
         ];
         assert_eq!(TRACE_WIDTH, trace_info.width());
         Mnist {
@@ -49,8 +49,8 @@ impl Air for Mnist {
         debug_assert_eq!(TRACE_WIDTH, next.len());
 
         result[0] = are_equal(next[0], current[0] * current[1]);
-        result[1] = are_equal(next[1], current[0] * current[1]);
-        result[2] = are_equal(next[2], next[1] * current[2]);
+        result[1] = are_equal(next[1], current[2]);
+        result[2] = are_equal(next[2], current[2]);
 
         //result[0] = are_equal(next[0], current[0] - E::ONE);
     }
@@ -79,7 +79,7 @@ impl Air for Mnist {
         vec![
             //Assertion::single(0, 0, Self::BaseField::ONE - Self::BaseField::new(4)),
             //Assertion::single(3, last_step, self.result),
-            Assertion::single(2, 1, Self::BaseField::new(24)),
+            Assertion::single(0, 2, Self::BaseField::new(24)),
         ]
     }
 }

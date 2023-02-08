@@ -45,8 +45,8 @@ impl<H: ElementHasher> MnistProver<H> {
 
         for i in 1..len {
             state[0] = state[0] * state[1];
-            state[1] = state[0];
-            state[2] = state[2] * state[1];
+            state[1] = state[2];
+            //state[2] = state[2];
 
             trace.update_row(i, &state);
         }
@@ -66,7 +66,7 @@ where
 
     fn get_pub_inputs(&self, trace: &Self::Trace) -> BaseElement {
         let last_step = trace.length() - 1;
-        trace.get(2, 1)
+        trace.get(0, 2)
     }
 
     fn options(&self) -> &ProofOptions {
