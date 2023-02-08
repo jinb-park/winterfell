@@ -22,10 +22,20 @@ use prover::MnistProver;
 #[cfg(test)]
 mod tests;
 
-const TRACE_WIDTH: usize = 1;
+const TRACE_WIDTH: usize = 3;
 type Blake3_192 = winterfell::crypto::hashers::Blake3_192<BaseElement>;
 type Blake3_256 = winterfell::crypto::hashers::Blake3_256<BaseElement>;
 type Sha3_256 = winterfell::crypto::hashers::Sha3_256<BaseElement>;
+
+// Utils
+pub fn from_signed_int_field(x: i64) -> BaseElement {
+    if x < 0 {
+        let p: u64 = (x * -1) as u64;
+        BaseElement::ZERO - BaseElement::new(p)
+    } else {
+        BaseElement::new(x as u64)
+    }
+}
 
 // ML INFERENCE EXAMPLE
 // ================================================================================================
@@ -126,12 +136,12 @@ where
     }
 
     fn verify(&self, proof: StarkProof) -> Result<(), VerifierError> {
-        let result = BaseElement::ONE - BaseElement::new(11); // -10
+        let result = BaseElement::new(24);
         winterfell::verify::<Mnist, H>(proof, result)
     }
 
     fn verify_with_wrong_inputs(&self, proof: StarkProof) -> Result<(), VerifierError> {
-        let result = BaseElement::ONE;
+        let result = BaseElement::ZERO;
         winterfell::verify::<Mnist, H>(proof, result)
     }
 }
